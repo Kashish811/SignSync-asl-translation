@@ -61,3 +61,7 @@ Uploaded videos are written to a temporary file, processed and deleted immediate
 ## Limits
 
 Research system, not an interpreter. ASL only, one sentence per clip, trained on frontal studio recordings. Do not use for medical, legal or safety-critical communication.
+
+## Evaluation code and results
+
+The `evaluation/` folder holds the backend: data preparation (`prepare.py`), test-set evaluation (`signsync_eval.py`), analysis scripts, the run scripts `00_setup.sh` to `06_demo.sh`, the notebooks, and the saved results and charts in `evaluation/results/`. The environment, model weights and Uni-Sign code are not stored here; `00_setup.sh` and `01_download.sh` fetch them.

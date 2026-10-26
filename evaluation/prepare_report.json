@@ -1,0 +1,41 @@
+{
+ "labels": {
+  "train": 31165,
+  "val": 1741,
+  "test": 2357
+ },
+ "config_patched": true,
+ "splits": {
+  "train": {
+   "labels": 31165,
+   "missing_pose": 79,
+   "verdict": "PASS",
+   "example_missing": [
+    "0E4mKYwAhOs_8-8-rgb_front",
+    "0Esq_TAc-1Y_23-5-rgb_front",
+    "0Esq_TAc-1Y_24-5-rgb_front"
+   ],
+   "example_pose_files": [
+    "--7E2sU6zP4_10-5-rgb_front.pkl",
+    "--7E2sU6zP4_11-5-rgb_front.pkl",
+    "--7E2sU6zP4_12-5-rgb_front.pkl"
+   ]
+  },
+  "val": "SKIPPED",
+  "test": {
+   "labels": 2357,
+   "missing_pose": 8,
+   "verdict": "PASS",
+   "example_missing": [
+    "g0yUlOaqL6k_17-3-rgb_front",
+    "g0yUlOaqL6k_18-3-rgb_front",
+    "g0yUlOaqL6k_19-3-rgb_front"
+   ],
+   "example_pose_files": [
+    "-fZc293MpJk_0-1-rgb_front.pkl",
+    "-fZc293MpJk_2-1-rgb_front.pkl",
+    "-fZc293MpJk_3-1-rgb_front.pkl"
+   ]
+  }
+ }
+}

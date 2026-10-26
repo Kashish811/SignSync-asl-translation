@@ -1,0 +1,39 @@
+{
+ "meta": {
+  "n_no_pose_excluded": 8,
+  "tag": "main_test",
+  "split": "test",
+  "n_scored": 2349,
+  "n_skipped": 0,
+  "control": "none",
+  "drop": [],
+  "beams": 4,
+  "dtype": "torch.bfloat16",
+  "seed": 42,
+  "max_length": 256,
+  "ckpt": "how2sign_pose_only_slt.pth",
+  "ckpt_sha_head": "1630faf1adb0",
+  "seconds": 450.9,
+  "sec_per_clip": 0.192,
+  "sacrebleu_note": "BLEU-n = corpus BLEU with max n-gram order n, 13a tokenization, case-sensitive"
+ },
+ "metrics": {
+  "BLEU-1": 38.51310700472712,
+  "BLEU-2": 25.503165210597743,
+  "BLEU-3": 18.350065641526847,
+  "BLEU-4": 13.745702671442418,
+  "ROUGE-L": 30.66349291587947,
+  "avg_hyp_words": 17.91017454235845,
+  "avg_ref_words": 17.590464027245638,
+  "distinct_hyp_ratio": 0.9761600681140911,
+  "UniSign_metric_script": {
+   "bleu": {
+    "bleu1": 38.51310700472712,
+    "bleu2": 25.503165210597743,
+    "bleu3": 18.350065641526847,
+    "bleu4": 13.745702671442418
+   },
+   "rouge": 33.32485064369083
+  }
+ }
+}
