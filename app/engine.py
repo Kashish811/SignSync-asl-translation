@@ -28,8 +28,9 @@ def status():
 def translate(video_path):
     """Run the pipeline on one video file. Returns (sentence, seconds)."""
     started = time.time()
+    runner = os.path.join(os.path.dirname(os.path.abspath(__file__)), "run_demo.py")   # adds placeholder modules, then runs the demo
     proc = subprocess.run(
-        [sys.executable, "demo/online_inference.py", "--online_video", os.path.abspath(video_path), "--finetune", CKPT],
+        [sys.executable, runner, os.path.abspath(video_path), CKPT],
         cwd=UNISIGN_DIR, capture_output=True, text=True, timeout=TIMEOUT_S,
         env={**os.environ, "PYTHONPATH": UNISIGN_DIR},
     )
