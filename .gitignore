@@ -1,0 +1,11 @@
+Uni-Sign/
+hf_unisign/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+__pycache__/
+.venv/
+*.mp4
+*.mov
+*.pkl

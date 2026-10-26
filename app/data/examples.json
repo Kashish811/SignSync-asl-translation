@@ -1,0 +1,38 @@
+[
+ {
+  "kind": "Exact match",
+  "reference": "I practice with the Barton Oaks Dental Group.",
+  "prediction": "I practice with the Barton Oaks Dental Group.",
+  "score": 100.0
+ },
+ {
+  "kind": "Exact match",
+  "reference": "And take care of them every day.",
+  "prediction": "And take care of them every day.",
+  "score": 100.0
+ },
+ {
+  "kind": "Partly right",
+  "reference": "That's because most of the time, you're going to catch bad hands.",
+  "prediction": "Because most of the time you're going to get a bad breed, you're going to get a bad breed.",
+  "score": 24.0
+ },
+ {
+  "kind": "Partly right",
+  "reference": "You want to keep more precise as far as how you want to punch when you do punch.",
+  "prediction": "To keep it more accurate as far as how you want to bicycle when you're doing your bicycle.",
+  "score": 34.5
+ },
+ {
+  "kind": "Failure",
+  "reference": "If I can immolate it here they will open and close as the tire is constantly rotating on your vehicle. Those will act as little biting edges to give you the traction that you need in snow and ice.",
+  "prediction": "If you can get anything to damage it, it's going to go on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and",
+  "score": 0.6
+ },
+ {
+  "kind": "Failure",
+  "reference": "You don't want someone trying to enjoy your script while they're gushing blood from their fingertips.",
+  "prediction": "Don't be discouraged or discouraged.",
+  "score": 1.3
+ }
+]

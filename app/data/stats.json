@@ -1,0 +1,22 @@
+{
+ "n_clips": 2349,
+ "bleu1": 38.5,
+ "bleu2": 25.5,
+ "bleu3": 18.4,
+ "bleu4": 13.75,
+ "bleu4_ci": [
+  13.04,
+  14.47
+ ],
+ "rouge_l": 30.7,
+ "exact_pct": 1.1,
+ "controls": {
+  "full": 13.89,
+  "hands_off": 0.77,
+  "shuffled": 0.66,
+  "drop_face_all": 9.69,
+  "drop_body": 5.3,
+  "drop_right": 2.46,
+  "drop_left": 11.72
+ }
+}

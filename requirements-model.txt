@@ -1,0 +1,17 @@
+# Needed only for live translation (the examples and statistics pages work without these)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
+torchvision==0.20.1
+einops
+sentencepiece
+sacrebleu
+rouge
+huggingface_hub
+timm
+transformers>=4.40,<4.50
+numpy<2
+pillow
+tqdm
+protobuf
+opencv-python-headless
+onnxruntime
