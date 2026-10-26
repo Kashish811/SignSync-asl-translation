@@ -259,6 +259,16 @@
   </div>
 </section>
 
+
+<section id="recorded" class="reveal" hidden>
+  <div class="wrap">
+    <div class="eyebrow">Recorded demo</div>
+    <h2>The app translating a clip</h2>
+    <p class="lead">A screen recording of the application running on the project machine: a clip is uploaded and the model returns its English translation.</p>
+    <video id="demo-video" controls preload="metadata" style="width:100%;max-width:880px;margin-top:24px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow)"></video>
+  </div>
+</section>
+
 <section id="examples" class="reveal">
   <div class="wrap">
     <div class="eyebrow">Examples</div>
@@ -334,16 +344,36 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const names = { full: "Full model", drop_left: "Left hand removed", drop_face_all: "Face removed", drop_body: "Body removed", drop_right: "Right hand removed", hands_off: "Both hands removed", shuffled: "Another clip's poses" };
 
+/* Built-in copy of real results (from the official test-set run), used only when data/*.json cannot be loaded,
+   for example when this file is opened on its own. When data/examples.json and data/stats.json load, they replace it. */
+const DEFAULTS = {
+  examples: [
+    { kind: "Exact match", reference: "I practice with the Barton Oaks Dental Group.", prediction: "I practice with the Barton Oaks Dental Group." },
+    { kind: "Exact match", reference: "And take care of them every day.", prediction: "And take care of them every day." },
+    { kind: "Partly right", reference: "That's because most of the time, you're going to catch bad hands.", prediction: "Because most of the time you're going to get a bad sand boa." },
+    { kind: "Partly right", reference: "You want to keep more precise as far as how you want to punch when you do punch.", prediction: "To keep it more accurate as far as how you want to bicycle when you do a bicycle." }
+  ],
+  stats: { n_clips: 2349, bleu4: 13.75, bleu4_ci: [13.04, 14.47], rouge_l: 30.7, exact_pct: 1.1,
+           controls: { full: 13.89, drop_left: 11.72, drop_face_all: 9.69, drop_body: 5.3, drop_right: 2.46, hands_off: 0.77, shuffled: 0.66 } }
+};
+const api = (name) => fetch("/api/" + name).then((r) => { if (!r.ok) throw new Error("no api"); return r.json(); })
+  .catch(() => fetch("data/" + name + ".json").then((r) => { if (!r.ok) throw new Error("no file"); return r.json(); }))
+  .catch(() => DEFAULTS[name]);
+
 /* ---------- model status ---------- */
 let live = false, chosen = null;
-fetch("/api/health").then(r => r.json()).then(h => {
+fetch("/api/health").then((r) => { if (!r.ok) throw new Error("no api"); return r.json(); }).then((h) => {
   live = h.live;
   const b = $("live-badge");
   b.className = "badge " + (live ? "live" : "off");
   b.textContent = live ? "● Model ready" : "Live translation unavailable on this server";
   b.title = h.reason;
   syncButton();
-}).catch(() => { $("live-badge").textContent = "Server not reachable"; });
+}).catch(() => {
+  const b = $("live-badge");                      // static hosting: no backend is running
+  b.className = "badge off";
+  b.textContent = "Showing saved results. Live translation runs on the project machine.";
+});
 
 /* ---------- upload and translate ---------- */
 const drop = $("drop"), input = $("file"), prev = $("preview"), go = $("go");
@@ -377,30 +407,31 @@ go.addEventListener("click", async () => {
 });
 
 /* ---------- examples ---------- */
-fetch("/api/examples").then(r => r.json()).then(all => {
+api("examples").then(all => {
   const list = all.filter(x => x.kind !== "Failure");
   const el = $("cards");
   if (!list.length) { el.outerHTML = '<div class="empty">Examples are generated from your evaluation results. Run <code>scripts/make_examples.py</code> (see the README).</div>'; return; }
   const cls = { "Exact match": "exact", "Partly right": "partly", "Failure": "fail" };
   el.innerHTML = list.map(x => '<div class="card"><span class="tag ' + (cls[x.kind] || "partly") + '">' + esc(x.kind) + '</span>' +
     '<div class="lbl">Reference</div><p>' + esc(x.reference) + '</p><div class="lbl">Model</div><p>' + esc(x.prediction) + '</p>' +
-    '<div class="score">Sentence BLEU ' + esc(x.score) + '</div></div>').join("");
+    (x.score !== undefined ? '<div class="score">Sentence BLEU ' + esc(x.score) + '</div>' : '') + '</div>').join("");
 });
 
 /* ---------- results ---------- */
-fetch("/api/stats").then(r => r.json()).then(s => {
+api("stats").then(s => {
   if (!s.bleu4) { $("tiles").innerHTML = '<div class="empty" style="grid-column:1/-1">Statistics are generated from your evaluation results. Run <code>scripts/make_examples.py</code> (see the README).</div>'; return; }
   $("h-bleu").textContent = s.bleu4.toFixed(2);
   $("h-rouge").textContent = s.rouge_l.toFixed(1);
   $("h-n").textContent = s.n_clips.toLocaleString(); const g = $("gl-clips"); if (g) g.dataset.count = s.n_clips;
   $("h-cap").textContent = "Official How2Sign test set, " + s.n_clips.toLocaleString() + " clips.";
   const tile = (k, v, sub) => '<div class="tile"><div class="k">' + k + '</div><div class="v">' + v + '</div><div class="s">' + sub + '</div></div>';
+  const ci = s.bleu4_ci ? "95% CI " + s.bleu4_ci[0] + " – " + s.bleu4_ci[1] : "corpus BLEU";
   $("tiles").innerHTML =
-    tile("BLEU-4", s.bleu4.toFixed(2), "95% CI " + s.bleu4_ci[0] + " – " + s.bleu4_ci[1]) +
+    tile("BLEU-4", s.bleu4.toFixed(2), ci) +
     tile("ROUGE-L", s.rouge_l.toFixed(1), "F1, higher is better") +
-    tile("BLEU-1", s.bleu1.toFixed(1), "word overlap") +
+    (s.bleu1 ? tile("BLEU-1", s.bleu1.toFixed(1), "word overlap") : "") +
     tile("Test clips", s.n_clips.toLocaleString(), "official How2Sign test set");
-  const rows = [["BLEU-1", s.bleu1], ["BLEU-2", s.bleu2], ["BLEU-3", s.bleu3], ["BLEU-4", s.bleu4], ["ROUGE-L", s.rouge_l]];
+  const rows = [["BLEU-1", s.bleu1], ["BLEU-2", s.bleu2], ["BLEU-3", s.bleu3], ["BLEU-4", s.bleu4], ["ROUGE-L", s.rouge_l]].filter(r => typeof r[1] === "number");
   const max = Math.max(...rows.map(r => r[1]));
   $("bar-rows").innerHTML = rows.map(r => '<div class="bar"><span>' + r[0] + '</span><div class="track"><div class="fill" style="width:' + (100 * r[1] / max) + '%"></div></div><span class="num">' + (r[0] === "BLEU-4" ? r[1].toFixed(2) : r[1].toFixed(1)) + '</span></div>').join("");
   $("bars").hidden = false;
@@ -466,6 +497,14 @@ const QUOTES = [
   function restart() { clearInterval(timer); timer = setInterval(() => show((i + 1) % QUOTES.length), 7000); }
   show(0); restart();
 })();
+
+
+/* ---------- recorded demo (shown only if data/demo.mp4 exists) ---------- */
+fetch("data/demo.mp4", { method: "HEAD" }).then((r) => {
+  if (!r.ok) return;
+  $("demo-video").src = "data/demo.mp4";
+  $("recorded").hidden = false;
+}).catch(() => {});
 
 /* ---------- acknowledgements dialog ---------- */
 $("ack-open").addEventListener("click", () => $("ack").showModal());
