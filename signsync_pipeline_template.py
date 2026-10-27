@@ -2,11 +2,9 @@
 signsync_pipeline_template.py
 =============================
 
-AN EDUCATIONAL TEMPLATE: how a project like SignSync could be built from scratch.
 
-What it is
-    A single-file reference pipeline for pose-based sign-language translation, following
-    the design of Li et al., 2025 (arXiv:2501.15187): body/hand/face keypoints ->
+What it is:
+     body/hand/face keypoints ->
     four skeleton graphs -> ST-GCN encoders -> mT5-base decoder -> English text.
     It shows every stage a student would have to build:
 
@@ -18,22 +16,6 @@ What it is
         STAGE 6  decoding-only tuning (beams, repetition penalty)   (decode-tune)
         STAGE 7  final evaluation on the test split  (eval)
 
-What it is NOT
-    * It is not the code behind the results of the SignSync project. Those results
-      (BLEU-4 13.75, ROUGE-L 30.7 on 2,349 How2Sign test clips) come from the released,
-      pre-trained checkpoint of that paper, not from this file.
-    * It has not been run at full scale. The `smoke` command runs the whole pipeline on
-      tiny synthetic data in about a minute to prove the code works; that tells you
-      nothing about accuracy. A real run needs real data and a large GPU.
-    * It is a simplified re-implementation of the ideas, not a copy of the authors' code.
-      The exact keypoint subset, normalisation and fusion in the original differ in detail.
-
-Honest expectations for a real run
-    The paper reports BLEU-4 14.5 on How2Sign only after large-scale pre-training.
-    Training only on How2Sign (79 h) from scratch should be expected to score far lower.
-    Full-scale cost is roughly: days of coding (no pose extraction needed),
-    about a day per training run on a 40-80 GB GPU, and a week or more for a proper sweep
-    (rough estimates, not measurements).
 
 Quick start
     pip install torch transformers sentencepiece sacrebleu numpy
