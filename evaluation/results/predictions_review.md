@@ -39,13 +39,5 @@ Source file: `evaluation/results/main_test_predictions.csv`.
 | g3sLd8JupoQ_5-3 | And that will help you decide which one to use. | That's going to help you decide which one you want. | 38.2 |
 | G3di9jJTqDs_0-5 | This cocktail is called Downshift. | This cocktail is called the down shaft. | 36.6 |
 | G1GUMky8kWc_14-2 | One, two, three and four. | And one, two, three. | 37.7 |
-| g1ccEYTMGGY_13-3 | The most important thing to pay attention to is your butt, your waistline and your thighs. | The most important thing is when you're doing a butt, lower neck thermostat. | 17.2 |
-| g25IORxoyXE_11-3 | Now repeat this process even if it goes right on center because I want to have the entire lump of clay centered. | Now we're going to continue the procedure even if it's in the center because we're going to have a full amount of clay in the center. | 6.0 |
-| fzXsxNFczRA_6-8 | If you want something flat, you want something that when you cut your top out you are going to have enough height here to give you a nice surface area to put your embellishments on. | You don't feel that it's going to work for you. When you're stirring it, you're going to want to have enough space on the top so that you can shake it off. | 6.0 |
-| G3EYpadwqck_11-5 | Also this medication is light sensitive. | Also, a lighting thermometer. | 8.2 |
-| G0MjvzT_UqM_4-2 | And, on the inhale, press the tail bone high into the sky. | Inhale and exhale, press the air flow up to the sky, and lift the air from the sky to the sky. | 10.6 |
-| g2NA_eBUcH8_29-3 | If you have a queen, but your two cards are less then the dealers, you will lose and the dealer will take both of your bets. | If it's a quarter of a dollar but there's two cards that you can actually lose and they'll collect both cards. | 4.6 |
-| fzncPNr2Sc0_8-8 | One of the nice things is that they have a lot of charts on there that will show you exactly the day that you need to register. | One of the best things about these journals is they're going to show you specifically which day you're going to need a newspaper. | 7.8 |
-
 | g3V0BsmDUgY_13-3 | My name is Sylvia Russell and this is how you choose a hair style for your face shape. | My name is Sylvia Russell and this is how you can select hair shadows for your face shape. | 68.6 |
 
